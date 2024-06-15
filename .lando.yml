@@ -1,0 +1,8 @@
+name: nbrb-currency-parser
+recipe: lamp
+config:
+  php: 8.2
+  webroot: .
+services:
+  myservice:
+    type: phpmyadmin

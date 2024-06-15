@@ -1,0 +1,1 @@
+<h1>Currencies</h1>
