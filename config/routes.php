@@ -2,7 +2,7 @@
 
 use App\Controllers\CurrenciesController;
 use App\Controllers\HomeController;
-use App\Router\Route;
+use App\Kernel\Router\Route;
 
 return [
     Route::get('/home', [HomeController::class, 'index']),
