@@ -1,10 +1,10 @@
 <?php
 
+use App\Controllers\CurrenciesController;
+use App\Controllers\HomeController;
+use App\Router\Route;
+
 return [
-    '/home' => function () {
-        include_once APP_PATH.'/views/pages/home.php';
-    },
-    '/currencies' => function () {
-        include_once APP_PATH.'/views/pages/currencies.php';
-    },
+    Route::get('/home', [HomeController::class, 'index']),
+    Route::get('/currencies', [CurrenciesController::class, 'index']),
 ];
