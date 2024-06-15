@@ -2,11 +2,16 @@
 
 namespace App\Controllers;
 
-class CurrenciesController
+use App\Kernel\Controller\Controller;
+use App\Kernel\View\View;
+
+class CurrenciesController extends Controller
 {
 
     public function index(): void
     {
-        include_once APP_PATH.'/views/pages/currencies.php';
+        $view = new View();
+
+        $view->page('currencies');
     }
 }
