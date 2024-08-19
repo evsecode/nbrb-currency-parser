@@ -2,11 +2,14 @@
 
 namespace App\Kernel\Controller;
 
+use App\Kernel\Exceptions\ViewNotFoundException;
 use App\Kernel\View\View;
 
 abstract class Controller
 {
     private View $view;
+
+
     public function view(string $name): void
     {
         $this->view->page($name);

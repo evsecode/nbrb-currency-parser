@@ -11,8 +11,7 @@ class View
         $viewPath=APP_PATH."/views/pages/$name.php";
 
         if(!file_exists($viewPath)) {
-            echo "Page $name not found";
-            return;
+            throw new ViewNotFoundException("Page $name not found");
         }
 
         extract(array:[
@@ -28,6 +27,7 @@ class View
 
         if(!file_exists($componentPath)) {
             echo "Component $name not found";
+
             return;
         }
         include_once $componentPath;

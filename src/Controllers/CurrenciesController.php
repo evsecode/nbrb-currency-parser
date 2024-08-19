@@ -3,15 +3,17 @@
 namespace App\Controllers;
 
 use App\Kernel\Controller\Controller;
-use App\Kernel\View\View;
 
 class CurrenciesController extends Controller
 {
 
     public function index(): void
     {
-        $view = new View();
+        $this->view('currencies');
+    }
 
-        $view->page('currencies');
+    public function exchange(): void
+    {
+        $this->view('exchange');
     }
 }
