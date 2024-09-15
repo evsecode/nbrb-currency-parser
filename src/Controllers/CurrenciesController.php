@@ -12,6 +12,16 @@ class CurrenciesController extends Controller
         $this->view('currencies');
     }
 
+    public function add(): void
+    {
+        $this->view('admin/currencies/add');
+    }
+
+    public function store(): void
+    {
+        dd($this->request()->input('currencies'));
+    }
+
     public function exchange(): void
     {
         $this->view('exchange');
