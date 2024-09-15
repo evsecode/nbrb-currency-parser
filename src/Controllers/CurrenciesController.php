@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Kernel\Controller\Controller;
+use App\Kernel\Validator\Validator;
 
 class CurrenciesController extends Controller
 {
@@ -19,7 +20,25 @@ class CurrenciesController extends Controller
 
     public function store(): void
     {
-        dd($this->request()->input('currencies'));
+//        $data = ['currencies' => $this->request()->input('currencies')];
+//        $rules = [
+//            'currencies' => ['min_checkbox:2'], // минимум 2 чекбокса должны быть выбраны
+//        ];
+//        $validator = new Validator();
+//
+//        dd($validator->validate($data, $rules), $validator->errors());
+//
+//        dd($this->request()->input('currencies'));
+
+        $validation = $this->request()->validate([
+            'currencies' => ['min_checkbox:2'],
+        ]);
+
+        if (!$validation) {
+            dd('Validation failed', $this->request()->errors());
+        }
+
+        dd('Validation passed');
     }
 
     public function exchange(): void
