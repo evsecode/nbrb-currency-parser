@@ -2,7 +2,7 @@
 
 namespace App\Kernel\Session;
 
-class Session
+class Session implements SessionInterface
 {
 
     public function __construct()
@@ -15,12 +15,12 @@ class Session
         $_SESSION[$key] = $value;
     }
 
-    public function get(string $key, $default = null)
+    public function get(string $key, $default = null): mixed
     {
         return $_SESSION[$key] ?? $default;
     }
 
-    public function getFlash(string $key, $default = null)
+    public function getFlash(string $key, $default = null): mixed
     {
         $value = $this->get($key, $default);
         $this->remove($key);
