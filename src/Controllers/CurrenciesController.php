@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Kernel\Controller\Controller;
+use App\Kernel\Http\Redirect;
 use App\Kernel\Validator\Validator;
 
 class CurrenciesController extends Controller
@@ -35,7 +36,11 @@ class CurrenciesController extends Controller
         ]);
 
         if (!$validation) {
-            dd('Validation failed', $this->request()->errors());
+            foreach ($this->request()->errors() as $field => $errors) {
+                $this->session()->set($field, $errors);
+            }
+
+            $this->redirect('/admin/currencies/add');
         }
 
         dd('Validation passed');

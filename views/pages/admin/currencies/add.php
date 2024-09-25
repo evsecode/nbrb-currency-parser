@@ -1,6 +1,7 @@
 <?php
 /**
  * @var \App\Kernel\View\View $view
+ * @var \App\Kernel\Session\Session $session
  */
 ?>
 
@@ -17,6 +18,13 @@
             <li><input type="checkbox" name="currencies[]" value="eur">eur</li>
         </ul>
     </div>
+    <?php if ($session->has(key: 'currencies')) { ?>
+        <ul>
+            <?php foreach ($session->getFlash(key: 'currencies') as $error) { ?>
+                <li style="color: red;"><?php echo $error ?></li>
+            <?php } ?>
+        </ul>
+    <?php } ?>
     <div>
         <button>Set</button>
     </div>

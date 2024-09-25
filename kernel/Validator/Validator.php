@@ -31,7 +31,12 @@ class Validator
 
         return empty($this->errors);
     }
-    
+
+    public function errors(): array
+    {
+        return $this->errors;
+    }
+
 
     private function validateRule(string $key, string $ruleName, string $ruleValue = null): string|false
     {
