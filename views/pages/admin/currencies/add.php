@@ -12,10 +12,10 @@
     <div id="currenciesList">
         <label>Currencies list</label>
         <ul>
-            <li><input type="checkbox" name="currencies[]" value="rub">rub</li>
-            <li><input type="checkbox" name="currencies[]" value="byn">byn</li>
-            <li><input type="checkbox" name="currencies[]" value="usd">usd</li>
-            <li><input type="checkbox" name="currencies[]" value="eur">eur</li>
+            <li><input type="checkbox" name="currencies[]" value="USD">USD</li>
+            <li><input type="checkbox" name="currencies[]" value="EUR">EUR</li>
+            <li><input type="checkbox" name="currencies[]" value="RUB">RUB</li>
+            <li><input type="checkbox" name="currencies[]" value="BYN">BYN</li>
         </ul>
     </div>
     <?php if ($session->has(key: 'currencies')) { ?>
@@ -26,7 +26,9 @@
         </ul>
     <?php } ?>
     <div>
-        <button>Set</button>
+        <p>
+            <button>Set</button>
+        </p>
     </div>
 </form>
 <?php $view->component('end'); ?>
