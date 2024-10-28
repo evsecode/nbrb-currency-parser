@@ -3,16 +3,18 @@
 namespace App\Kernel\Controller;
 
 use App\Kernel\Auth\AuthInterface;
+use App\Kernel\Cache\CacheInterface;
 use App\Kernel\Database\DatabaseInterface;
-use App\Kernel\Exceptions\ViewNotFoundException;
 use App\Kernel\Http\RedirectInterface;
 use App\Kernel\Http\RequestInterface;
 use App\Kernel\Session\SessionInterface;
 use App\Kernel\View\ViewInterface;
+use App\Services\NBRBApiClient;
 
 abstract class Controller
 {
     private ViewInterface $view;
+
     private RequestInterface $request;
 
     private RedirectInterface $redirect;
@@ -22,6 +24,30 @@ abstract class Controller
     private DatabaseInterface $database;
 
     private AuthInterface $auth;
+
+    private NBRBApiClient $apiClient;
+
+    private CacheInterface $cache;
+
+    public function cache(): CacheInterface
+    {
+        return $this->cache;
+    }
+
+    public function setCache(CacheInterface $cache): void
+    {
+        $this->cache = $cache;
+    }
+
+    public function apiClient(): NBRBApiClient
+    {
+        return $this->apiClient;
+    }
+
+    public function setApiClient(NBRBApiClient $apiClient): void
+    {
+        $this->apiClient = $apiClient;
+    }
 
     public function auth(): AuthInterface
     {
@@ -73,10 +99,9 @@ abstract class Controller
         $this->request = $request;
     }
 
-
-    public function view(string $name): void
+    public function view(string $name, array $data = []): void
     {
-        $this->view->page($name);
+        $this->view->page($name, $data);
     }
 
     public function setView(ViewInterface $view): void

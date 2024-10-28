@@ -49,6 +49,7 @@ class Request implements RequestInterface
         foreach ($rules as $field => $rule) {
             $data[$field] = $this->input($field);
         }
+
         return $this->validator->validate($data, $rules);
     }
 
@@ -57,4 +58,8 @@ class Request implements RequestInterface
         return $this->validator->errors();
     }
 
+    public function isAjax(): bool
+    {
+        return isset($this->server['HTTP_X_REQUESTED_WITH']) && $this->server['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
+    }
 }

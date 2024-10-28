@@ -4,6 +4,8 @@ namespace App\Kernel\Container;
 
 use App\Kernel\Auth\Auth;
 use App\Kernel\Auth\AuthInterface;
+use App\Kernel\Cache\CacheInterface;
+use App\Kernel\Cache\FileCache;
 use App\Kernel\Config\Config;
 use App\Kernel\Config\ConfigInterface;
 use App\Kernel\Database\Database;
@@ -20,6 +22,7 @@ use App\Kernel\Validator\Validator;
 use App\Kernel\Validator\ValidatorInterface;
 use App\Kernel\View\View;
 use App\Kernel\View\ViewInterface;
+use App\Services\NBRBApiClient;
 
 class Container
 {
@@ -41,12 +44,16 @@ class Container
 
     public readonly AuthInterface $auth;
 
+    public readonly NBRBApiClient $apiClient;
+
+    public readonly CacheInterface $cache;
+
     public function __construct()
     {
         $this->registerServices();
     }
 
-    private function registerServices()
+    private function registerServices(): void
     {
         $this->request = Request::createFromGlobals();
         $this->validator = new Validator();
@@ -55,13 +62,19 @@ class Container
         $this->session = new Session();
         $this->config = new Config();
         $this->database = new Database($this->config);
+        $this->cache = new FileCache(APP_PATH.'/cache');
+        $this->apiClient = new NBRBApiClient();
         $this->auth = new Auth($this->database, $this->session, $this->config);
         $this->view = new View($this->session, $this->auth);
-        $this->router = new Router($this->view,
+        $this->router = new Router(
+            $this->view,
             $this->request,
             $this->redirect,
             $this->session,
             $this->database,
-            $this->auth);
+            $this->auth,
+            $this->apiClient,
+            $this->cache,
+        );
     }
 }

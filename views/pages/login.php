@@ -6,19 +6,24 @@
 ?>
 
 <?php $view->component('start'); ?>
-<h1>Login</h1>
-<form action="/login" method="post">
-    <div style="display: flex; flex-direction: column; align-items: flex-start;">
+<div class="auth-container">
+    <h1 class="auth-title">Login</h1>
+    <form action="/login" method="post" class="auth-form">
         <?php if ($session->has(key: 'error')) { ?>
-            <p style="color: red">
-                <?php echo $session->get(key: 'error') ?>
-            </p>
+            <div class="auth-error">
+                <p><?php echo $session->get(key: 'error') ?></p>
+            </div>
         <?php } ?>
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
-        <button>Login</button>
-    </div>
-</form>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" class="form-control" required placeholder="Your email">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" class="form-control" required placeholder="Your password">
+        </div>
+        <button type="submit" class="auth-btn">Login</button>
+        <p class="auth-helper">Don't have an account? <a href="/register" class="auth-link">Register</a></p>
+    </form>
+</div>
 <?php $view->component('end'); ?>

@@ -4,7 +4,7 @@ namespace App\Kernel\Auth;
 
 interface AuthInterface
 {
-    public function attempt(string $username, string $password): bool;
+    public function attempt(string $email, string $password): bool;
 
     public function logout(): void;
 
@@ -14,7 +14,7 @@ interface AuthInterface
 
     public function table(): string;
 
-    public function username(): string;
+    public function name(): string;
 
     public function password(): string;
 

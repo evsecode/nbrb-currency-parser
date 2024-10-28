@@ -16,5 +16,7 @@ interface RequestInterface
 
     public function validate(array $rules);
 
+    public function isAjax(): bool;
+
     public function errors();
 }

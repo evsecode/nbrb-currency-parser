@@ -16,11 +16,11 @@ class RegisterController extends Controller
         $validation = $this->request()->validate([
             'email' => ['required', 'email'],
             'name' => ['required', 'max:255'],
-            'password' => ['required', 'min:8'],
-//            'password_confirmation' => ['required', 'min:8'],
+            'password' => ['required', 'min:8', 'confirmed'],
+            'password_confirmation' => ['required', 'min:8'],
         ]);
 
-        if (!$validation) {
+        if (! $validation) {
             foreach ($this->request()->errors() as $field => $errors) {
                 $this->session()->set($field, $errors);
             }
@@ -29,10 +29,13 @@ class RegisterController extends Controller
         }
 
         $userId = $this->db()->insert('users', [
-            'email' => $this->request()->input('email'),
             'name' => $this->request()->input('name'),
+            'email' => $this->request()->input('email'),
             'password' => password_hash($this->request()->input('password'), PASSWORD_DEFAULT),
         ]);
+//        dd(['name' => $this->request()->input('name'),
+//            'email' => $this->request()->input('email'),
+//            'password' => password_hash($this->request()->input('password'), PASSWORD_DEFAULT)]);
 
         $this->redirect('/');
     }

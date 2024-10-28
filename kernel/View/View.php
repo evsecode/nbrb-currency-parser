@@ -15,7 +15,7 @@ class View implements ViewInterface
 
     }
 
-    public function page(string $name): void
+    public function page(string $name, array $data = []): void
     {
         $viewPath = APP_PATH."/views/pages/$name.php";
 
@@ -23,7 +23,7 @@ class View implements ViewInterface
             throw new ViewNotFoundException("Page $name not found");
         }
 
-        extract(array: $this->defaultData());
+        extract(array_merge($this->defaultData(), $data));
 
         include_once $viewPath;
     }

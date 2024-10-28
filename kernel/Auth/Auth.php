@@ -16,10 +16,10 @@ class Auth implements AuthInterface
 
     }
 
-    public function attempt(string $username, string $password): bool
+    public function attempt(string $email, string $password): bool
     {
         $user = $this->db->first($this->table(), [
-            $this->username() => $username,
+            $this->email() => $email,
         ]);
         if (! $user) {
             return false;
@@ -60,8 +60,10 @@ class Auth implements AuthInterface
 
             return new User(
                 $user['id'],
-                $user[$this->username()],
+                $user[$this->email()],
+                $user[$this->name()],
                 $user[$this->password()],
+                $user['is_admin']
             );
         }
 
@@ -73,9 +75,14 @@ class Auth implements AuthInterface
         return $this->config->get('auth.table', 'users');
     }
 
-    public function username(): string
+    public function name(): string
     {
-        return $this->config->get('auth.username', 'email');
+        return $this->config->get('auth.name', 'name');
+    }
+
+    public function email(): string
+    {
+        return $this->config->get('auth.email', 'email');
     }
 
     public function password(): string
